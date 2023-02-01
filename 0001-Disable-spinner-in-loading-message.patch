@@ -1,0 +1,31 @@
+From 9e2ab4a4a108350638f25ebd6f9187ec0015bbc3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Date: Wed, 1 Feb 2023 04:25:20 +0100
+Subject: [PATCH] Disable spinner in 'loading' message
+
+With software rendering, it takes too much CPU power, to the point when
+none other "idle" tasks are executing, including actually showing files
+list.
+
+https://github.com/QubesOS/qubes-issues/issues/7921
+---
+ src/nautilus-files-view.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/nautilus-files-view.c b/src/nautilus-files-view.c
+index b0657c7bd..6bb8b9654 100644
+--- a/src/nautilus-files-view.c
++++ b/src/nautilus-files-view.c
+@@ -437,7 +437,7 @@ real_setup_loading_floating_bar (NautilusFilesView *view)
+     nautilus_floating_bar_set_primary_label (NAUTILUS_FLOATING_BAR (priv->floating_bar),
+                                              nautilus_view_is_searching (NAUTILUS_VIEW (view)) ? _("Searching…") : _("Loading…"));
+     nautilus_floating_bar_set_details_label (NAUTILUS_FLOATING_BAR (priv->floating_bar), NULL);
+-    nautilus_floating_bar_set_show_spinner (NAUTILUS_FLOATING_BAR (priv->floating_bar), priv->loading);
++    nautilus_floating_bar_set_show_spinner (NAUTILUS_FLOATING_BAR (priv->floating_bar), false);
+     nautilus_floating_bar_set_show_stop (NAUTILUS_FLOATING_BAR (priv->floating_bar), priv->loading);
+ 
+     gtk_widget_set_halign (priv->floating_bar, GTK_ALIGN_END);
+-- 
+2.37.3
+

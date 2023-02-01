@@ -13,6 +13,7 @@ Summary:        File manager for GNOME
 License:        GPLv3+
 URL:            https://wiki.gnome.org/Apps/Nautilus
 Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+Patch0:         0001-Disable-spinner-in-loading-message.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
