@@ -1,0 +1,8 @@
+vm-fc37:
+  rpm:
+    build:
+    - nautilus.spec
+source:
+  files:
+  - url: https://download.gnome.org/sources/nautilus/43/nautilus-@VERSION@.tar.xz
+    sha512: nautilus-@VERSION@.tar.xz.sha512

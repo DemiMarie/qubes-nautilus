@@ -1,0 +1,3 @@
+RPM_SPEC_FILES.vm-fc37 := nautilus.spec
+RPM_SPEC_FILES := $(RPM_SPEC_FILES.$(PACKAGE_SET)-$(DIST))
+NO_ARCHIVE := 1
