@@ -1,0 +1,42 @@
+From 91fddfbaf43989c3411196dbdde65ccae0a396db Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Date: Sun, 26 Feb 2023 19:14:06 +0100
+Subject: [PATCH] Drop spinner when loading networks too
+
+Similar to previous patch, the spinning the spinner takes all the idle
+loop time, so nothing else gets done - including actually refreshing the
+state of loaded network resources.
+---
+ src/gtk/nautilusgtkplacesview.c | 9 ---------
+ 1 file changed, 9 deletions(-)
+
+diff --git a/src/gtk/nautilusgtkplacesview.c b/src/gtk/nautilusgtkplacesview.c
+index 255d88869..e5a765051 100644
+--- a/src/gtk/nautilusgtkplacesview.c
++++ b/src/gtk/nautilusgtkplacesview.c
+@@ -2121,21 +2121,12 @@ listbox_header_func (GtkListBoxRow *row,
+       if (row_is_network)
+         {
+           GtkWidget *header_name;
+-          GtkWidget *network_header_spinner;
+ 
+           gtk_widget_set_margin_end (label, 6);
+ 
+           header_name = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+-          network_header_spinner = gtk_spinner_new ();
+-          gtk_widget_set_margin_end (network_header_spinner, 12);
+-          g_object_bind_property (NAUTILUS_GTK_PLACES_VIEW (user_data),
+-                                  "fetching-networks",
+-                                  network_header_spinner,
+-                                  "spinning",
+-                                  G_BINDING_SYNC_CREATE);
+ 
+           gtk_box_append (GTK_BOX (header_name), label);
+-          gtk_box_append (GTK_BOX (header_name), network_header_spinner);
+           gtk_box_append (GTK_BOX (header), header_name);
+         }
+       else
+-- 
+2.39.2
+
